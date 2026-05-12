@@ -1,33 +1,28 @@
-import { COL, ROW } from "../utils/constant";
+import { COL, LIMIT, ROW } from "../utils/constant";
+import { boardEl } from "./dom";
 
-export function renderBoard(board:number[][]){    
-  const boardEl = document.getElementById("board");
-  if (!boardEl) return;
-  boardEl.innerHTML = "";
-
-  for(let r=0; r<ROW; r++){
-    for(let c=0; c<COL; c++){
-      const cell = document.createElement("div");
-      cell.id = `${r}-${c}`;
-      console.log('board',board[r][c]);
-      
-      updateTile(cell, board[r][c]);
+export function renderBoard(board:number[][]){
+  if(!boardEl) return;
+  for(let r=0;r<ROW;r++){
+    for(let c=0;c<COL;c++){
+      const cell=document.createElement('div');
+      cell.id=`${r}-${c}`;
+      updateCell(cell,board[r][c]);
       boardEl.append(cell);
     }
   }
 }
 
-export function updateTile( cell:HTMLDivElement, num:number){
-  cell.innerText = "";
-  cell.className = "cell";
+export function updateCell(cell:HTMLDivElement,value:number){
+  cell.textContent=String(value);
+  cell.classList.add('cell');
 
-  if(num > 0){
-    cell.innerText = String(num);
-    if(num <= 512){
-      cell.classList.add(`x${num}`);
+  if(value>0){
+    if(value<LIMIT){
+      cell.classList.add(`x${value}`);
     }
     else{
-      cell.classList.add("x1024");
+      cell.classList.add(`x1024`);
     }
   }
 }
