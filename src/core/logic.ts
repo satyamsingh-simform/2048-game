@@ -1,8 +1,10 @@
 import { getElement, scorVal } from "../ui/dom";
+import { celebrate } from "../utils/celebrate";
 import { COL, ROW } from "../utils/constant";
 import { board } from "./board";
 
 let score=0;
+export let gameWon=false;
 
 export function removeZero(row:number[]){
     return row.filter((val)=>val!==0);
@@ -13,6 +15,22 @@ export function addZero(row:number[]){
     }
 }
 
+function checkWin(score:number){
+    if(score>2048){
+        gameWon=true;
+        celebrate();
+        setTimeout(()=>{
+            alert('you win');
+        },100)
+    }
+}
+function loose(){
+    gameWon=true;
+    setTimeout(()=>{
+        alert('you loose');
+    },100)
+}
+
 export function slide(row:number[]){
     row=removeZero(row);//[2, 2, 0, 4]-->[2, 2, 4]
 
@@ -20,8 +38,9 @@ export function slide(row:number[]){
         if(row[r]===row[r+1]){
             row[r]*=2;
             score=score+row[r];
-            if(scorVal instanceof HTMLHeadingElement){
+            if(scorVal instanceof HTMLElement){
                 scorVal.innerText=`${score}`;
+                checkWin(score);
             };
             row[r+1]=0;
         }
@@ -39,6 +58,7 @@ export function emptyCell(){
             }
         }
     }
+    loose()
     return false;
 }
 
