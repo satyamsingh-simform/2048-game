@@ -15,12 +15,14 @@ export function addZero(row:number[]){
 
 export function slide(row:number[]){
     row=removeZero(row);//[2, 2, 0, 4]-->[2, 2, 4]
-        
+
     for(let r=0;r<row.length-1;r++){
         if(row[r]===row[r+1]){
             row[r]*=2;
             score=score+row[r];
-            scorVal.innerText=`${score}`;
+            if(scorVal instanceof HTMLHeadingElement){
+                scorVal.innerText=`${score}`;
+            };
             row[r+1]=0;
         }
     }
@@ -48,9 +50,10 @@ export function setTwo(){
             let c=Math.floor(Math.random()*COL);
             if(board[r][c]===0){
                 board[r][c]=2;
-                let tile = getElement(`${r}-${c}`);
-                tile.innerText = "2";
-                tile.classList.add("x2");
+                let cell = getElement(`${r}-${c}`);
+                if(!(cell instanceof HTMLDivElement)) return;
+                cell.innerText = "2";
+                cell.classList.add("x2");
                 found = true;
             }
         }
