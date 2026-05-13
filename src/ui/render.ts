@@ -16,7 +16,9 @@ export function renderBoard(board:number[][]){
 export function updateCell(cell:HTMLDivElement,value:number){
   cell.textContent='';
   cell.classList.value='';
-  cell.textContent=String(value);
+  if (value>0){
+    cell.innerHTML=`<span class="tile-text">${value}</span>`;
+  } 
   cell.classList.add('cell');
 
   if(value>0){

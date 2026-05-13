@@ -78,3 +78,79 @@ body{
     background-color: #eec744;
     color: white;
 }
+
+.pop {
+  animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.tile-text {
+  display: inline-block;
+}
+
+.move-left .tile-text {
+  animation: moveLeft 0.25s ease;
+}
+
+.move-right .tile-text {
+  animation: moveRight 0.25s ease;
+}
+
+.move-up .tile-text {
+  animation: moveUp 0.25s ease;
+}
+
+.move-down .tile-text {
+  animation: moveDown 0.25s ease;
+}
+
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(30px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(-30px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveUp {
+  from {
+    transform: translateY(30px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveDown {
+  from {
+    transform: translateY(-30px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

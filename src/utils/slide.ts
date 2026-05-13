@@ -2,6 +2,7 @@ import { board } from "../core/board";
 import { slide } from "../core/logic";
 import { getElement } from "../ui/dom";
 import { updateCell } from "../ui/render";
+import { movementAnimation } from "./animation";
 import { COL, ROW } from "./constant";
 
 export function slideLeft(){
@@ -12,6 +13,7 @@ export function slideLeft(){
       if(!(cell instanceof HTMLDivElement)) return;
       let num = board[r][c];
       updateCell(cell, num);
+      movementAnimation(cell,'move-left')
     }
   }
 }
@@ -26,6 +28,7 @@ export function slideRight(){
           if(!(cell instanceof HTMLDivElement)) return;
           let num = board[r][c];
           updateCell(cell, num);
+          movementAnimation(cell,'move-right')
         }
     }
 }
@@ -39,6 +42,7 @@ export function slideUp(){
             if(!(cell instanceof HTMLDivElement)) return;
             let num = board[r][c];
             updateCell(cell, num);
+            movementAnimation(cell,'move-up')
         }
     }
 }
@@ -55,6 +59,7 @@ export function slideDown(){
             if(!(cell instanceof HTMLDivElement)) return;
             let num = board[r][c];
             updateCell(cell, num);
+            movementAnimation(cell,'move-down')
         }
     }
 }

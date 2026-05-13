@@ -1,6 +1,6 @@
 import { getElement, scorVal } from "../ui/dom";
 import { celebrate } from "../utils/celebrate";
-import { COL, ROW } from "../utils/constant";
+import { COL, ROW, WIN_SCORE } from "../utils/constant";
 import { board } from "./board";
 
 let score=0;
@@ -16,7 +16,7 @@ export function addZero(row:number[]){
 }
 
 function checkWin(score:number){
-    if(score>2048){
+    if(score>WIN_SCORE){
         gameWon=true;
         celebrate();
         setTimeout(()=>{
@@ -70,8 +70,13 @@ export function setTwo(){
             let c=Math.floor(Math.random()*COL);
             if(board[r][c]===0){
                 board[r][c]=2;
+                console.log(board);
                 let cell = getElement(`${r}-${c}`);
                 if(!(cell instanceof HTMLDivElement)) return;
+                cell.classList.add('pop')
+                setTimeout(()=>{
+                    cell.classList.remove('pop');
+                },500)
                 cell.innerText = "2";
                 cell.classList.add("x2");
                 found = true;
