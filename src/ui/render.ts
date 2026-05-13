@@ -1,5 +1,5 @@
 import { COL, LIMIT, ROW } from "../utils/constant";
-import { boardEl } from "./dom";
+import { boardEl} from "./dom";
 
 export function renderBoard(board:number[][]){
   if(!boardEl) return;
@@ -14,6 +14,8 @@ export function renderBoard(board:number[][]){
 }
 
 export function updateCell(cell:HTMLDivElement,value:number){
+  cell.textContent='';
+  cell.classList.value='';
   cell.textContent=String(value);
   cell.classList.add('cell');
 
