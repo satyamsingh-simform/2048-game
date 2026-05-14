@@ -3,6 +3,7 @@ import { boardEl} from "./dom";
 
 export function renderBoard(board:number[][]){
   if(!boardEl) return;
+  boardEl.textContent='';
   for(let r=0;r<ROW;r++){
     for(let c=0;c<COL;c++){
       const cell=document.createElement('div');

@@ -38,6 +38,17 @@ body{
   color: gray;
 }
 
+#reset{
+  width: 100px;
+  height: 50px;
+  font-size: 1.1rem;
+  margin: auto;
+  color: gray;
+}
+#reset:hover{
+  cursor: pointer;
+}
+
 .x2{
     background-color: #eee4da;
     color: #727371;
