@@ -1,4 +1,4 @@
-import { getElement, resetBtn, scorVal } from "../ui/dom";
+import { getElement, resetBtn, scorVal, targetScore } from "../ui/dom";
 import { renderBoard } from "../ui/render";
 import { movementAnimation } from "../utils/animation";
 import { celebrate } from "../utils/celebrate";
@@ -97,6 +97,10 @@ resetBtn?.addEventListener('click',()=>{
     if(scorVal instanceof HTMLElement){
         scorVal.textContent=`${gameData.score}`
     }
+    if(targetScore instanceof HTMLElement){
+        targetScore.textContent=`${gameData.winScore}`
+    }
+
     renderBoard(gameData.board);
     setTwo();
     setTwo();

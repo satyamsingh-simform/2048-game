@@ -1,5 +1,6 @@
+import { gameData } from "../core/gameState";
 import { COL, LIMIT, ROW } from "../utils/constant";
-import { boardEl} from "./dom";
+import { boardEl, targetScore} from "./dom";
 
 export function renderBoard(board:number[][]){
   if(!boardEl) return;
@@ -30,4 +31,8 @@ export function updateCell(cell:HTMLDivElement,value:number){
       cell.classList.add(`x1024`);
     }
   }
+}
+
+if(targetScore instanceof HTMLElement){
+        targetScore.textContent=`${gameData.winScore}`
 }

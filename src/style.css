@@ -49,6 +49,10 @@ body{
   cursor: pointer;
 }
 
+#target{
+  margin-right: 150px;
+}
+
 .x2{
     background-color: #eee4da;
     color: #727371;
