@@ -2,7 +2,7 @@ import { getElement, resetBtn, scorVal } from "../ui/dom";
 import { renderBoard } from "../ui/render";
 import { movementAnimation } from "../utils/animation";
 import { celebrate } from "../utils/celebrate";
-import { COL, ROW, WIN_SCORE } from "../utils/constant";
+import { COL, ROW } from "../utils/constant";
 import { gameData } from "./gameState";
 
 
@@ -17,7 +17,7 @@ export function addZero(row:number[]){
 }
 
 function checkWin(score:number){
-    if(score>WIN_SCORE){
+    if(score>gameData.winScore){
         gameData.gameWon=true;
         celebrate();
         setTimeout(()=>{
@@ -85,6 +85,7 @@ export function setTwo(){
 
 resetBtn?.addEventListener('click',()=>{
     console.log('reset works');
+    gameData.winScore=Number(prompt('score you want to achieve'));
     gameData.score=0;
     gameData.gameWon=false;
     gameData.board=[
