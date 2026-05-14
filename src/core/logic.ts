@@ -1,10 +1,11 @@
-import { getElement, scorVal } from "../ui/dom";
+import { getElement, resetBtn, scorVal, targetScore } from "../ui/dom";
+import { renderBoard } from "../ui/render";
+import { movementAnimation } from "../utils/animation";
 import { celebrate } from "../utils/celebrate";
-import { COL, ROW, WIN_SCORE } from "../utils/constant";
-import { board } from "./board";
+import { COL, ROW } from "../utils/constant";
+import { gameData } from "./gameState";
 
-let score=0;
-export let gameWon=false;
+
 
 export function removeZero(row:number[]){
     return row.filter((val)=>val!==0);
@@ -16,8 +17,8 @@ export function addZero(row:number[]){
 }
 
 function checkWin(score:number){
-    if(score>WIN_SCORE){
-        gameWon=true;
+    if(score>gameData.winScore){
+        gameData.gameWon=true;
         celebrate();
         setTimeout(()=>{
             alert('you win');
@@ -25,7 +26,7 @@ function checkWin(score:number){
     }
 }
 function loose(){
-    gameWon=true;
+    gameData.gameWon=true;
     setTimeout(()=>{
         alert('you loose');
     },100)
@@ -37,10 +38,10 @@ export function slide(row:number[]){
     for(let r=0;r<row.length-1;r++){
         if(row[r]===row[r+1]){
             row[r]*=2;
-            score=score+row[r];
+            gameData.score+=row[r];
             if(scorVal instanceof HTMLElement){
-                scorVal.innerText=`${score}`;
-                checkWin(score);
+                scorVal.innerText=`${gameData.score}`;
+                checkWin(gameData.score);
             };
             row[r+1]=0;
         }
@@ -53,7 +54,7 @@ export function slide(row:number[]){
 export function emptyCell(){
     for(let r=0;r<ROW;r++){
         for(let c=0;c<COL;c++){
-            if(board[r][c]===0){
+            if(gameData.board[r][c]===0){
                 return true;
             }
         }
@@ -68,15 +69,12 @@ export function setTwo(){
         while(!found){
             let r=Math.floor(Math.random()*ROW);
             let c=Math.floor(Math.random()*COL);
-            if(board[r][c]===0){
-                board[r][c]=2;
-                console.log(board);
+            if(gameData.board[r][c]===0){
+                gameData.board[r][c]=2;
+                console.log(gameData.board);
                 let cell = getElement(`${r}-${c}`);
                 if(!(cell instanceof HTMLDivElement)) return;
-                cell.classList.add('pop')
-                setTimeout(()=>{
-                    cell.classList.remove('pop');
-                },500)
+                movementAnimation(cell,'pop')
                 cell.innerText = "2";
                 cell.classList.add("x2");
                 found = true;
@@ -84,3 +82,26 @@ export function setTwo(){
         }
     }
 }
+
+resetBtn?.addEventListener('click',()=>{
+    console.log('reset works');
+    gameData.winScore=Number(prompt('score you want to achieve'));
+    gameData.score=0;
+    gameData.gameWon=false;
+    gameData.board=[
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+    ]
+    if(scorVal instanceof HTMLElement){
+        scorVal.textContent=`${gameData.score}`
+    }
+    if(targetScore instanceof HTMLElement){
+        targetScore.textContent=`${gameData.winScore}`
+    }
+
+    renderBoard(gameData.board);
+    setTwo();
+    setTwo();
+})
